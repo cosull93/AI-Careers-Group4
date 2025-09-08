@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "AI-Careers-Group4"
+  navbar:
+    right:
+      - text: "Home"
+        href: index.qmd
+      - text: "Project Overview"
+        href: project-overview.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+
+

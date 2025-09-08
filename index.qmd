@@ -1,0 +1,7 @@
+---
+title: "Home"
+---
+
+# Welcome to AI Careers Group 4
+
+This is the home page for our project
