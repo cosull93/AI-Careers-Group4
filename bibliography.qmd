@@ -1,0 +1,9 @@
+---
+title: "bibliography"
+format: html
+editor: visual
+---
+
+###References
+
+  {refs}
