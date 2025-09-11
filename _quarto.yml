@@ -10,7 +10,7 @@ website:
         href: index.qmd
       - text: "Project Overview"
         href: project-overview.qmd
-      - text: "Bibliography"
+      - text: "Bibliography Section"
         href: bibliography.qmd
 
 format:
