@@ -1,9 +1,13 @@
----
-title: "bibliography"
-format: html
-editor: visual
----
+--- 
+title: "bibliography" 
+format: html 
+editor: visual 
+bibliography: bibliography.bib 
+--- 
 
-###References
+###References 
 
-  {refs}
+- [@dr_ashaji_george_artificial_2024] 
+- [@wilson_artificial_2024] 
+- [@acemoglu_low-skill_2018] 
+- [@challoumis_automation_2024]
