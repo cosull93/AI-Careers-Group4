@@ -1,7 +1,30 @@
 ---
 title: "Project Overview"
+format:
+  html: default
+  pdf:  default
+          
 ---
+
 
 # AI Careers vs Non-AI Careers Overview
 
-** Insert summary for Assignment 1
+## Introduction
+
+Artificial Intelligence (AI) is significantly transforming the nature of work across industries. This transformation, however, is not uniform. Data-intensive fields such as finance and customer service are experiencing rapid disruption as AI systems are integrated into their operations, while less data-driven fields, such as mechanical engineering and farming, are adopting AI at a slower pace. Importantly, AI adoption is not solely linked to workforce reductions, in many cases, it also drives firm growth, innovation, and the creation of new job opportunities. The emergence of entirely new roles such as AI ethicists, machine learning auditors, and prompt engineers further demonstrates how AI is reshaping the labor market. Therefore, studying AI-powered careers in contrast with traditional occupations is therefore important to understand where risks and opportunities lie for today’s workforce.
+
+## Research Rationale
+
+### Importance of the Topic
+
+AI adoption brings both opportunities and risks. Automation creates the potential for job displacement, particularly in routine and repetitive roles such as retail clerks and cashiers. At the same time, new AI-related positions are emerging, providing strong growth prospects and higher wages. Workers in traditional industries increasingly face the need to reskill to remain competitive, which makes it critical to analyze how AI careers differ from traditional ones.
+
+### Key Trends in 2024
+
+In 2024, the application of Artificial Intelligence expanded from limited pilot projects to widespread integration across organizational operations. This transition has significantly increased the demand for employees with AI-related expertise, contributing to a growing wage disparity between AI-skilled and non-AI workers. The effects, however, are not uniform across sectors. Engineering fields are incorporating AI-enabled tools to enhance productivity, farming is gradually adopting agritech innovations, and the retail sector is experiencing contraction as automation increasingly replaces routine roles. At the same time, perspectives remain divided, while some stakeholders view AI as a catalyst for innovation and job creation, others express concern about the displacement of traditional roles.
+ 
+### Expected Findings
+
+This study anticipates that AI related careers will experience faster growth, higher wages, and greater long-term security compared to many traditional occupations. Mechanical engineering is expected to remain relatively stable, with AI serving as a supportive tool rather than a replacement for human expertise. Farming is projected to adopt technological innovations at a gradual pace, while continuing to depend on human involvement for critical tasks. Conversely, the retail sector is likely to face sharper declines as automation increasingly substitutes routine tasks. Overall, the study will demonstrate that new AI careers are growing quickly and that workers in at-risk industries will need to learn new skills.
+
+
