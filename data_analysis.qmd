@@ -1,0 +1,24 @@
+---
+title: "Data Analysis"
+subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
+author:
+  - name: Caroline O'Sullivan
+    affiliations:
+      - id: bu
+        name: Boston University
+        city: Boston
+        state: MA
+  - name: Bhargavi Manyala
+    affiliations:
+      - ref: bu
+  - name: Taylor Luckenbill
+    affiliations:
+      - ref: bu      
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+---

@@ -12,6 +12,8 @@ website:
         href: project-overview.qmd
       - text: "Bibliography Section"
         href: bibliography.qmd
+      - text: "Data Analysis"
+        href: data-analysis.qmd
 
 format:
   html:
