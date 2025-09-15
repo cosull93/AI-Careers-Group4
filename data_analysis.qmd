@@ -21,6 +21,13 @@ format:
     toc: true
     number-sections: true
     df-print: paged
+engine: jupyter
+jupyter: python3
+execute:
+  echo: true
+  eval: true
+  output: true
+  freeze: auto
 ---
 
 # Import Data
