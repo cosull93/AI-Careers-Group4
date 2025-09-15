@@ -1,8 +1,10 @@
 ---
 title: "Project Overview"
 format:
-  html: default
-  pdf:  default
+  html:
+    bibliography: references.bib
+    csl: csl/econometrica.csl
+    toc: true
           
 ---
 
