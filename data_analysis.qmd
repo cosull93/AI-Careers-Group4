@@ -79,7 +79,7 @@ df.show(5, truncate=False)
 * Retain: SOC_2021_2, SOC_2021_2_NAME, SOC_2021_3, SOC_2021_3_NAME, SOC_2021_4, SOC_2021_4_NAME, SOC_2021_5, SOC_2021_5_NAME
 
 * Drop: CITY, COUNTY, STATE, REMOTE_TYPE, EMPLOYMENT_TYPE (numeric codes when text names exist)
-  Drop : COUNTY_OUTGOING, COUNTY_NAME_OUTGOING, COUNTY_INCOMING, COUNTY_NAME_INCOMING, MSA_OUTGOING, MSA_NAME_OUTGOING, MSA_INCOMING, MSA_NAME_INCOMING (geographic mobility data)
+* Drop : COUNTY_OUTGOING, COUNTY_NAME_OUTGOING, COUNTY_INCOMING, COUNTY_NAME_INCOMING, MSA_OUTGOING, MSA_NAME_OUTGOING, MSA_INCOMING, MSA_NAME_INCOMING (geographic mobility data)
 * Retain: LOCATION, CITY_NAME, COUNTY_NAME, STATE_NAME, MSA, MSA_NAME, REMOTE_TYPE_NAME, EMPLOYMENT_TYPE_NAME (text-based fields)
 
 * Drop: TITLE_RAW, TITLE, TITLE_NAME, COMPANY_RAW (unprocessed versions)
@@ -96,31 +96,69 @@ df.show(5, truncate=False)
 * Drop: LAST_UPDATED_DATE, LAST_UPDATED_TIMESTAMP, DUPLICATES, SOURCE_TYPES, SOURCES, ACTIVE_URLS, ACTIVE_SOURCES_INFO (system tracking only)
 * Retain: Core job posting fields only
 
+* Drop: ID, URL, BODY (technical identifier, link, and full text not needed for analysis)
+* Retain: Main job details (title, company, salary, location)
+
 * Drop: CIP6, CIP6_NAME, CIP4, CIP4_NAME, CIP2, CIP2_NAME (education codes)
   ONET, ONET_NAME, ONET_2019, ONET_2019_NAME (extra occupation codes)
   LIGHTCAST_SECTORS, LIGHTCAST_SECTORS_NAME (alternative grouping)
 * Retain: Standard NAICS, SOC, and LOT classifications only
 
-* Drop: SKILLS, SKILLS_NAME, SPECIALIZED_SKILLS, SPECIALIZED_SKILLS_NAME, CERTIFICATIONS, CERTIFICATIONS_NAME, COMMON_SKILLS,     COMMON_SKILLS_NAME, SOFTWARE_SKILLS, SOFTWARE_SKILLS_NAME (too detailed text fields)
-* Retain: Structured job posting attributes only
+* Drop: SKILLS, SKILLS_NAME, SPECIALIZED_SKILLS, SPECIALIZED_SKILLS_NAME, CERTIFICATIONS, CERTIFICATIONS_NAME, COMMON_SKILLS,      COMMON_SKILLS_NAME, SOFTWARE_SKILLS, SOFTWARE_SKILLS_NAME (too detailed text fields)
+* Retain: Key job attributes only
 
 * Drop: MODELED_EXPIRED, MODELED_DURATION (estimates, not real values)
 * Retain: POSTED, EXPIRED, DURATION (actual posting data)
 
+### Why are we removing multiple versions of NAICS/SOC codes?
+
+The dataset includes both older and newer versions of industry (NAICS) and occupation (SOC) codes. Keeping multiple versions creates duplication and confusion because the same job could be categorized under two systems. To avoid this, we retain only the most recent standards — NAICS 2022 and SOC 2021 — which reflect the current labor market.
+
+### How will this improve analysis?
+
+* Improves analysis as follows:
+* Ensures clarity by eliminating overlapping or outdated categories.
+* Maintains consistency so all jobs follow the same classification.
+* Improves efficiency by reducing extra columns that don’t add value.
+* Increases accuracy since results are based on the most up-to-date classification systems.
+
+### Dropping Unnecessary Columns(Python Implementation)
+```{python}
+
+columns_to_drop = [
+    "NAICS2", "NAICS2_NAME", "NAICS3", "NAICS3_NAME",
+    "NAICS4", "NAICS4_NAME", "NAICS5", "NAICS5_NAME",
+    "NAICS6", "NAICS6_NAME","ID","URL","BODY",
+    "SOC_2", "SOC_2_NAME", "SOC_3", "SOC_3_NAME",
+    "SOC_4", "SOC_4_NAME", "SOC_5", "SOC_5_NAME",
+    "CITY", "COUNTY", "STATE", "REMOTE_TYPE", "EMPLOYMENT_TYPE",
+    "COUNTY_OUTGOING", "COUNTY_NAME_OUTGOING",
+    "COUNTY_INCOMING", "COUNTY_NAME_INCOMING",
+    "MSA_OUTGOING", "MSA_NAME_OUTGOING",
+    "MSA_INCOMING", "MSA_NAME_INCOMING",
+    "TITLE_RAW", "TITLE", "TITLE_NAME", "COMPANY_RAW",
+    "EDUCATION_LEVELS", "MIN_EDULEVELS", "MAX_EDULEVELS",
+    "LOT_V6_SPECIALIZED_OCCUPATION", "LOT_V6_SPECIALIZED_OCCUPATION_NAME",
+    "LOT_V6_OCCUPATION", "LOT_V6_OCCUPATION_NAME",
+    "LOT_V6_OCCUPATION_GROUP", "LOT_V6_OCCUPATION_GROUP_NAME",
+    "LOT_V6_CAREER_AREA", "LOT_V6_CAREER_AREA_NAME",
+    "LAST_UPDATED_DATE", "LAST_UPDATED_TIMESTAMP",
+    "DUPLICATES", "SOURCE_TYPES", "SOURCES",
+    "ACTIVE_URLS", "ACTIVE_SOURCES_INFO",
+    "CIP2", "CIP2_NAME", "CIP4", "CIP4_NAME", "CIP6", "CIP6_NAME",
+    "ONET", "ONET_NAME", "ONET_2019", "ONET_2019_NAME",
+    "LIGHTCAST_SECTORS", "LIGHTCAST_SECTORS_NAME",
+    "SKILLS", "SKILLS_NAME", "SPECIALIZED_SKILLS", "SPECIALIZED_SKILLS_NAME",
+    "CERTIFICATIONS", "CERTIFICATIONS_NAME",
+    "COMMON_SKILLS", "COMMON_SKILLS_NAME",
+    "SOFTWARE_SKILLS", "SOFTWARE_SKILLS_NAME",
+    "MODELED_EXPIRED", "MODELED_DURATION"
+]
+
+df = df.drop(*columns_to_drop)
+df.show(truncate=False)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
