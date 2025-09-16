@@ -14,7 +14,7 @@ author:
   - name: Taylor Luckenbill
     affiliations:
       - ref: bu      
-bibliography: references.bib
+bibliography: bibliography.bib
 csl: csl/econometrica.csl
 format: 
   html:
@@ -24,23 +24,22 @@ format:
 engine: jupyter
 jupyter: python3
 execute:
-  echo: true
-  eval: true
-  output: true
-  freeze: auto
+  echo: true      
+  eval: true      
+  output: true    
+  freeze: auto 
 ---
+
 
 # Import Data
 Importing dataset using Pyspark..The code shows the schema and few rows of the dataset.
 
+
 ```{python}
 from pyspark.sql import SparkSession
 
-
-
 # Start a Spark session
 spark = SparkSession.builder.appName("JobPostingsAnalysis").getOrCreate()
-
 
 # Load the CSV file into a Spark DataFrame
 df = spark.read \
@@ -73,40 +72,40 @@ df.show(5, truncate=False)
 
 ### Redundant Columns
 
-Drop: NAICS2, NAICS2_NAME, NAICS3, NAICS3_NAME, NAICS4, NAICS4_NAME, NAICS5, NAICS5_NAME, NAICS6, NAICS6_NAME
-Retain: NAICS_2022_2, NAICS_2022_2_NAME through NAICS_2022_6, NAICS_2022_6_NAME
+* Drop: NAICS2, NAICS2_NAME, NAICS3, NAICS3_NAME, NAICS4, NAICS4_NAME, NAICS5, NAICS5_NAME, NAICS6, NAICS6_NAME
+* Retain: NAICS_2022_2, NAICS_2022_2_NAME through NAICS_2022_6, NAICS_2022_6_NAME
 
-Drop: SOC_2, SOC_2_NAME, SOC_3, SOC_3_NAME, SOC_4, SOC_4_NAME, SOC_5, SOC_5_NAME
-Retain: SOC_2021_2, SOC_2021_2_NAME, SOC_2021_3, SOC_2021_3_NAME, SOC_2021_4, SOC_2021_4_NAME, SOC_2021_5, SOC_2021_5_NAME
+* Drop: SOC_2, SOC_2_NAME, SOC_3, SOC_3_NAME, SOC_4, SOC_4_NAME, SOC_5, SOC_5_NAME
+* Retain: SOC_2021_2, SOC_2021_2_NAME, SOC_2021_3, SOC_2021_3_NAME, SOC_2021_4, SOC_2021_4_NAME, SOC_2021_5, SOC_2021_5_NAME
 
-Drop: CITY, COUNTY, STATE, REMOTE_TYPE, EMPLOYMENT_TYPE (numeric codes when text names exist)
-Drop : COUNTY_OUTGOING, COUNTY_NAME_OUTGOING, COUNTY_INCOMING, COUNTY_NAME_INCOMING, MSA_OUTGOING, MSA_NAME_OUTGOING, MSA_INCOMING, MSA_NAME_INCOMING (geographic mobility data)
-Retain: LOCATION, CITY_NAME, COUNTY_NAME, STATE_NAME, MSA, MSA_NAME, REMOTE_TYPE_NAME, EMPLOYMENT_TYPE_NAME (text-based fields)
+* Drop: CITY, COUNTY, STATE, REMOTE_TYPE, EMPLOYMENT_TYPE (numeric codes when text names exist)
+  Drop : COUNTY_OUTGOING, COUNTY_NAME_OUTGOING, COUNTY_INCOMING, COUNTY_NAME_INCOMING, MSA_OUTGOING, MSA_NAME_OUTGOING, MSA_INCOMING, MSA_NAME_INCOMING (geographic mobility data)
+* Retain: LOCATION, CITY_NAME, COUNTY_NAME, STATE_NAME, MSA, MSA_NAME, REMOTE_TYPE_NAME, EMPLOYMENT_TYPE_NAME (text-based fields)
 
-Drop: TITLE_RAW, TITLE, TITLE_NAME, COMPANY_RAW (unprocessed versions)
-Retain: TITLE_CLEAN, COMPANY_NAME (cleaned/processed versions)
+* Drop: TITLE_RAW, TITLE, TITLE_NAME, COMPANY_RAW (unprocessed versions)
+* Retain: TITLE_CLEAN, COMPANY_NAME (cleaned/processed versions)
 
-Drop: EDUCATION_LEVELS, MIN_EDULEVELS, MAX_EDULEVELS (numeric codes)
-Retain : EDUCATION_LEVELS_NAME, MIN_EDULEVELS_NAME, MAX_EDULEVELS_NAME (descriptive names)
+* Drop: EDUCATION_LEVELS, MIN_EDULEVELS, MAX_EDULEVELS (numeric codes)
+* Retain : EDUCATION_LEVELS_NAME, MIN_EDULEVELS_NAME, MAX_EDULEVELS_NAME (descriptive names)
 
-Drop: LOT_V6_SPECIALIZED_OCCUPATION, LOT_V6_SPECIALIZED_OCCUPATION_NAME, LOT_V6_OCCUPATION, LOT_V6_OCCUPATION_NAME, LOT_V6_OCCUPATION_GROUP, LOT_V6_OCCUPATION_GROUP_NAME, LOT_V6_CAREER_AREA, LOT_V6_CAREER_AREA_NAME (version-specific)
-Retain: LOT_CAREER_AREA, LOT_CAREER_AREA_NAME, LOT_OCCUPATION, LOT_OCCUPATION_NAME, LOT_SPECIALIZED_OCCUPATION, LOT_SPECIALIZED_OCCUPATION_NAME, LOT_OCCUPATION_GROUP, LOT_OCCUPATION_GROUP_NAME (current standard)
+* Drop: LOT_V6_SPECIALIZED_OCCUPATION, LOT_V6_SPECIALIZED_OCCUPATION_NAME, LOT_V6_OCCUPATION, LOT_V6_OCCUPATION_NAME,  LOT_V6_OCCUPATION_GROUP, LOT_V6_OCCUPATION_GROUP_NAME, LOT_V6_CAREER_AREA, LOT_V6_CAREER_AREA_NAME (version-specific)
+* Retain: LOT_CAREER_AREA, LOT_CAREER_AREA_NAME, LOT_OCCUPATION, LOT_OCCUPATION_NAME, LOT_SPECIALIZED_OCCUPATION, LOT_SPECIALIZED_OCCUPATION_NAME, LOT_OCCUPATION_GROUP, LOT_OCCUPATION_GROUP_NAME (current standard)
 
 ### Irrelevant Columns
 
-Drop: LAST_UPDATED_DATE, LAST_UPDATED_TIMESTAMP, DUPLICATES, SOURCE_TYPES, SOURCES, ACTIVE_URLS, ACTIVE_SOURCES_INFO (system tracking only)
-Retain: Core job posting fields only
+* Drop: LAST_UPDATED_DATE, LAST_UPDATED_TIMESTAMP, DUPLICATES, SOURCE_TYPES, SOURCES, ACTIVE_URLS, ACTIVE_SOURCES_INFO (system tracking only)
+* Retain: Core job posting fields only
 
-Drop: CIP6, CIP6_NAME, CIP4, CIP4_NAME, CIP2, CIP2_NAME (education codes)
-ONET, ONET_NAME, ONET_2019, ONET_2019_NAME (extra occupation codes)
-LIGHTCAST_SECTORS, LIGHTCAST_SECTORS_NAME (alternative grouping)
-Retain: Standard NAICS, SOC, and LOT classifications only
+* Drop: CIP6, CIP6_NAME, CIP4, CIP4_NAME, CIP2, CIP2_NAME (education codes)
+  ONET, ONET_NAME, ONET_2019, ONET_2019_NAME (extra occupation codes)
+  LIGHTCAST_SECTORS, LIGHTCAST_SECTORS_NAME (alternative grouping)
+* Retain: Standard NAICS, SOC, and LOT classifications only
 
-Drop: SKILLS, SKILLS_NAME, SPECIALIZED_SKILLS, SPECIALIZED_SKILLS_NAME, CERTIFICATIONS, CERTIFICATIONS_NAME, COMMON_SKILLS, COMMON_SKILLS_NAME, SOFTWARE_SKILLS, SOFTWARE_SKILLS_NAME (too detailed text fields)
-Retain: Structured job posting attributes only
+* Drop: SKILLS, SKILLS_NAME, SPECIALIZED_SKILLS, SPECIALIZED_SKILLS_NAME, CERTIFICATIONS, CERTIFICATIONS_NAME, COMMON_SKILLS,     COMMON_SKILLS_NAME, SOFTWARE_SKILLS, SOFTWARE_SKILLS_NAME (too detailed text fields)
+* Retain: Structured job posting attributes only
 
-Drop: MODELED_EXPIRED, MODELED_DURATION (estimates, not real values)
-Retain: POSTED, EXPIRED, DURATION (actual posting data)
+* Drop: MODELED_EXPIRED, MODELED_DURATION (estimates, not real values)
+* Retain: POSTED, EXPIRED, DURATION (actual posting data)
 
 
 
