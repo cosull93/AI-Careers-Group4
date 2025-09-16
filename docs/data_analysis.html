@@ -175,6 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#handling-missing-valuescategorical-python-implementation" id="toc-handling-missing-valuescategorical-python-implementation" class="nav-link" data-scroll-target="#handling-missing-valuescategorical-python-implementation"><span class="header-section-number">2.3</span> Handling Missing Values(Categorical Python Implementation)</a></li>
   <li><a href="#handling-missing-valuesdate-python-implementation" id="toc-handling-missing-valuesdate-python-implementation" class="nav-link" data-scroll-target="#handling-missing-valuesdate-python-implementation"><span class="header-section-number">2.4</span> Handling Missing Values(Date Python Implementation)</a></li>
   <li><a href="#handling-missing-valuescombined-dataframe-python-implementation" id="toc-handling-missing-valuescombined-dataframe-python-implementation" class="nav-link" data-scroll-target="#handling-missing-valuescombined-dataframe-python-implementation"><span class="header-section-number">2.5</span> Handling Missing Values(Combined Dataframe Python Implementation)</a></li>
+  <li><a href="#duplicates-removalpython-implementation" id="toc-duplicates-removalpython-implementation" class="nav-link" data-scroll-target="#duplicates-removalpython-implementation"><span class="header-section-number">2.6</span> Duplicates Removal(Python Implementation)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -234,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="import-data" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Import Data</h1>
 <p>Importing dataset using Pyspark..The code shows the schema and few rows of the dataset.</p>
-<div id="7d018888" class="cell" data-execution_count="1">
+<div id="c625a97c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Start a Spark session</span></span>
@@ -257,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stderr">
 <pre><code>Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-25/09/16 05:59:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+25/09/16 06:23:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 [Stage 1:&gt;                                                          (0 + 1) / 1]                                                                                </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -396,10 +397,10 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 </code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>25/09/16 05:59:56 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.</code></pre>
+<pre><code>25/09/16 06:23:56 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.</code></pre>
 </div>
 </div>
-<div id="dd31a5e3" class="cell" data-execution_count="2">
+<div id="752906e0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stderr">
 <pre><code>[Stage 2:&gt;                                                          (0 + 1) / 1]                                                                                </code></pre>
 </div>
@@ -471,7 +472,7 @@ only showing top 5 rows
 </section>
 <section id="dropping-unnecessary-columnspython-implementation" class="level3" data-number="2.1.5">
 <h3 data-number="2.1.5" class="anchored" data-anchor-id="dropping-unnecessary-columnspython-implementation"><span class="header-section-number">2.1.5</span> Dropping Unnecessary Columns(Python Implementation)</h3>
-<div id="b83779a4" class="cell" data-execution_count="3">
+<div id="3f3a9192" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"NAICS2"</span>, <span class="st">"NAICS2_NAME"</span>, <span class="st">"NAICS3"</span>, <span class="st">"NAICS3_NAME"</span>,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"NAICS4"</span>, <span class="st">"NAICS4_NAME"</span>, <span class="st">"NAICS5"</span>, <span class="st">"NAICS5_NAME"</span>,</span>
@@ -544,7 +545,7 @@ only showing top 20 rows
 </section>
 <section id="handling-missing-valuesnumerical-python-implementation" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="handling-missing-valuesnumerical-python-implementation"><span class="header-section-number">2.2</span> Handling Missing Values(Numerical Python Implementation)</h2>
-<div id="738ed52b" class="cell" data-execution_count="4">
+<div id="fcee9ae2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> missingno <span class="im">as</span> msno</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -713,7 +714,7 @@ only showing top 20 rows
 </section>
 <section id="handling-missing-valuescategorical-python-implementation" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="handling-missing-valuescategorical-python-implementation"><span class="header-section-number">2.3</span> Handling Missing Values(Categorical Python Implementation)</h2>
-<div id="17125b7c" class="cell" data-execution_count="5">
+<div id="32bb13ca" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> missingno <span class="im">as</span> msno</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -911,7 +912,7 @@ only showing top 20 rows
 </section>
 <section id="handling-missing-valuesdate-python-implementation" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="handling-missing-valuesdate-python-implementation"><span class="header-section-number">2.4</span> Handling Missing Values(Date Python Implementation)</h2>
-<div id="91054051" class="cell" data-execution_count="6">
+<div id="13d7be25" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> missingno <span class="im">as</span> msno</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -985,7 +986,7 @@ only showing top 20 rows
 </section>
 <section id="handling-missing-valuescombined-dataframe-python-implementation" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="handling-missing-valuescombined-dataframe-python-implementation"><span class="header-section-number">2.5</span> Handling Missing Values(Combined Dataframe Python Implementation)</h2>
-<div id="65fc7393" class="cell" data-execution_count="7">
+<div id="8c603678" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>pandas_handled_missing_values <span class="op">=</span> pd.concat([pandas_num, pandas_cat, pandas_date], axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -1147,6 +1148,319 @@ only showing top 20 rows
 </table>
 
 <p>5 rows × 49 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="duplicates-removalpython-implementation" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="duplicates-removalpython-implementation"><span class="header-section-number">2.6</span> Duplicates Removal(Python Implementation)</h2>
+<div id="6dd4bd4e" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pandas_cleaned <span class="op">=</span> pandas_handled_missing_values.drop_duplicates(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    subset<span class="op">=</span>[<span class="st">"TITLE_CLEAN"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"LOCATION"</span>,<span class="st">"POSTED"</span>],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    keep<span class="op">=</span><span class="st">"first"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>pandas_cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">DURATION</th>
+<th data-quarto-table-cell-role="th">COMPANY</th>
+<th data-quarto-table-cell-role="th">MIN_YEARS_EXPERIENCE</th>
+<th data-quarto-table-cell-role="th">MAX_YEARS_EXPERIENCE</th>
+<th data-quarto-table-cell-role="th">SALARY</th>
+<th data-quarto-table-cell-role="th">SALARY_TO</th>
+<th data-quarto-table-cell-role="th">SALARY_FROM</th>
+<th data-quarto-table-cell-role="th">MSA</th>
+<th data-quarto-table-cell-role="th">LOT_CAREER_AREA</th>
+<th data-quarto-table-cell-role="th">LOT_OCCUPATION</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">LOT_OCCUPATION_NAME</th>
+<th data-quarto-table-cell-role="th">LOT_SPECIALIZED_OCCUPATION_NAME</th>
+<th data-quarto-table-cell-role="th">LOT_OCCUPATION_GROUP_NAME</th>
+<th data-quarto-table-cell-role="th">NAICS_2022_2_NAME</th>
+<th data-quarto-table-cell-role="th">NAICS_2022_3_NAME</th>
+<th data-quarto-table-cell-role="th">NAICS_2022_4_NAME</th>
+<th data-quarto-table-cell-role="th">NAICS_2022_5_NAME</th>
+<th data-quarto-table-cell-role="th">NAICS_2022_6_NAME</th>
+<th data-quarto-table-cell-role="th">POSTED</th>
+<th data-quarto-table-cell-role="th">EXPIRED</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>6.0</td>
+<td>894731.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>20980.0</td>
+<td>23.0</td>
+<td>231010.0</td>
+<td>...</td>
+<td>Business Intelligence Analyst</td>
+<td>General ERP Analyst / Consultant</td>
+<td>Business Intelligence</td>
+<td>Retail Trade</td>
+<td>Motor Vehicle and Parts Dealers</td>
+<td>Automotive Parts, Accessories, and Tire Retailers</td>
+<td>Automotive Parts and Accessories Retailers</td>
+<td>Automotive Parts and Accessories Retailers</td>
+<td>2024-06-02</td>
+<td>2024-06-08</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>18.0</td>
+<td>133098.0</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>12300.0</td>
+<td>23.0</td>
+<td>231010.0</td>
+<td>...</td>
+<td>Business Intelligence Analyst</td>
+<td>Oracle Consultant / Analyst</td>
+<td>Business Intelligence</td>
+<td>Administrative and Support and Waste Managemen...</td>
+<td>Administrative and Support Services</td>
+<td>Employment Services</td>
+<td>Temporary Help Services</td>
+<td>Temporary Help Services</td>
+<td>2024-06-02</td>
+<td>2024-08-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>35.0</td>
+<td>39063746.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>19100.0</td>
+<td>23.0</td>
+<td>231113.0</td>
+<td>...</td>
+<td>Data / Data Mining Analyst</td>
+<td>Data Analyst</td>
+<td>Data Analysis and Mathematics</td>
+<td>Finance and Insurance</td>
+<td>Insurance Carriers and Related Activities</td>
+<td>Agencies, Brokerages, and Other Insurance Rela...</td>
+<td>Other Insurance Related Activities</td>
+<td>Claims Adjusting</td>
+<td>2024-06-02</td>
+<td>2024-07-07</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>48.0</td>
+<td>37615159.0</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>38060.0</td>
+<td>23.0</td>
+<td>231113.0</td>
+<td>...</td>
+<td>Data / Data Mining Analyst</td>
+<td>Data Analyst</td>
+<td>Data Analysis and Mathematics</td>
+<td>Finance and Insurance</td>
+<td>Credit Intermediation and Related Activities</td>
+<td>Depository Credit Intermediation</td>
+<td>Commercial Banking</td>
+<td>Commercial Banking</td>
+<td>2024-06-02</td>
+<td>2024-07-20</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>15.0</td>
+<td>0.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>92500.0</td>
+<td>150000.0</td>
+<td>35000.0</td>
+<td>33700.0</td>
+<td>23.0</td>
+<td>231010.0</td>
+<td>...</td>
+<td>Business Intelligence Analyst</td>
+<td>Oracle Consultant / Analyst</td>
+<td>Business Intelligence</td>
+<td>Unclassified Industry</td>
+<td>Unclassified Industry</td>
+<td>Unclassified Industry</td>
+<td>Unclassified Industry</td>
+<td>Unclassified Industry</td>
+<td>2024-06-02</td>
+<td>2024-06-17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">72493</td>
+<td>15.0</td>
+<td>37110815.0</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>40060.0</td>
+<td>23.0</td>
+<td>231113.0</td>
+<td>...</td>
+<td>Data / Data Mining Analyst</td>
+<td>Data Analyst</td>
+<td>Data Analysis and Mathematics</td>
+<td>Professional, Scientific, and Technical Services</td>
+<td>Professional, Scientific, and Technical Services</td>
+<td>Computer Systems Design and Related Services</td>
+<td>Computer Systems Design and Related Services</td>
+<td>Custom Computer Programming Services</td>
+<td>2024-08-16</td>
+<td>2024-08-31</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">72494</td>
+<td>18.0</td>
+<td>59335641.0</td>
+<td>10.0</td>
+<td>3.0</td>
+<td>169275.0</td>
+<td>197550.0</td>
+<td>141000.0</td>
+<td>14460.0</td>
+<td>23.0</td>
+<td>231510.0</td>
+<td>...</td>
+<td>Computer Systems Engineer / Architect</td>
+<td>Enterprise Architect</td>
+<td>Network and Systems Engineering</td>
+<td>Information</td>
+<td>Publishing Industries</td>
+<td>Newspaper, Periodical, Book, and Directory Pub...</td>
+<td>Book Publishers</td>
+<td>Book Publishers</td>
+<td>2024-08-16</td>
+<td>2024-09-17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">72495</td>
+<td>37.0</td>
+<td>36997534.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>72800.0</td>
+<td>83200.0</td>
+<td>62400.0</td>
+<td>29620.0</td>
+<td>23.0</td>
+<td>231113.0</td>
+<td>...</td>
+<td>Data / Data Mining Analyst</td>
+<td>Data Analyst</td>
+<td>Data Analysis and Mathematics</td>
+<td>Administrative and Support and Waste Managemen...</td>
+<td>Administrative and Support Services</td>
+<td>Employment Services</td>
+<td>Employment Placement Agencies and Executive Se...</td>
+<td>Employment Placement Agencies</td>
+<td>2024-08-16</td>
+<td>2024-09-22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">72496</td>
+<td>18.0</td>
+<td>98412363.0</td>
+<td>7.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>12620.0</td>
+<td>23.0</td>
+<td>231113.0</td>
+<td>...</td>
+<td>Data / Data Mining Analyst</td>
+<td>Data Analyst</td>
+<td>Data Analysis and Mathematics</td>
+<td>Information</td>
+<td>Telecommunications</td>
+<td>All Other Telecommunications</td>
+<td>All Other Telecommunications</td>
+<td>All Other Telecommunications</td>
+<td>2024-08-16</td>
+<td>2024-10-15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">72497</td>
+<td>6.0</td>
+<td>39411763.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>116300.0</td>
+<td>131040.0</td>
+<td>88000.0</td>
+<td>19100.0</td>
+<td>23.0</td>
+<td>231010.0</td>
+<td>...</td>
+<td>Business Intelligence Analyst</td>
+<td>Oracle Consultant / Analyst</td>
+<td>Business Intelligence</td>
+<td>Professional, Scientific, and Technical Services</td>
+<td>Professional, Scientific, and Technical Services</td>
+<td>Computer Systems Design and Related Services</td>
+<td>Computer Systems Design and Related Services</td>
+<td>Computer Systems Design Services</td>
+<td>2024-08-16</td>
+<td>2024-08-22</td>
+</tr>
+</tbody>
+</table>
+
+<p>70789 rows × 49 columns</p>
 </div>
 </div>
 </div>

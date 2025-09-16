@@ -245,3 +245,16 @@ pandas_handled_missing_values = pd.concat([pandas_num, pandas_cat, pandas_date],
 pandas_handled_missing_values.head()
 
 ```
+
+##  Duplicates Removal(Python Implementation)
+```{python}
+
+pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
+    subset=["TITLE_CLEAN", "COMPANY_NAME", "LOCATION","POSTED"],
+    keep="first"
+)
+
+pandas_cleaned
+
+
+```
