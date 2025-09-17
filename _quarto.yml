@@ -13,7 +13,7 @@ website:
       - text: "Bibliography Section"
         href: bibliography.qmd
       - text: "Data Analysis"
-        href: data-analysis.qmd
+        href: data_analysis.qmd
 
 format:
   html:
