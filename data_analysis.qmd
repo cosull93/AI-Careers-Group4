@@ -246,18 +246,36 @@ pandas_cleaned
 ```
 
 ```{python}
-import plotly.express as px
-```
-
-```{python}
-fig = px.bar(pandas_cleaned["NAICS_2022_2_NAME"].value_counts(), title="Job Postings by Industry")
-fig.show()
-```
-
-```{python}
 import matplotlib.pyplot as plt
 import seaborn as sns
+```
 
+```{python}
+# Count occurrences
+industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().reset_index()
+industry_counts.columns = ["Industry", "Count"]
+
+# Optional: limit to top 10 for readability
+top10 = industry_counts.head(10)
+
+# Plot
+plt.figure(figsize=(12,6))
+sns.barplot(
+    data=top10,
+    x="Industry",
+    y="Count",
+    palette="viridis"  # or "magma", "coolwarm", etc.
+)
+
+plt.xticks(rotation=45, ha="right")
+plt.title("Top 10 Industries by Job Postings")
+plt.xlabel(None)
+plt.ylabel("Count")
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
 # Restrict to top 10 industries
 top10 = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().index[:10]
 filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
