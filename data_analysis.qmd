@@ -303,3 +303,22 @@ plt.show()
 
 ```
 
+```{python}
+# Count occurrences
+industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts()
+
+# take top 10 industries for readability
+top10 = industry_counts.head(10)
+
+# Pie chart
+plt.figure(figsize=(18,18))
+plt.pie(
+    top10.values,           # sizes
+    labels=top10.index,     # labels
+    autopct='%1.1f%%',      # show percentages
+)
+plt.title("Top 10 Industries by Job Postings")
+plt.tight_layout()
+plt.show()
+```
+
