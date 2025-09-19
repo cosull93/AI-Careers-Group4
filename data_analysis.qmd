@@ -245,3 +245,43 @@ pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
 pandas_cleaned
 ```
 
+```{python}
+import plotly.express as px
+```
+
+```{python}
+fig = px.bar(pandas_cleaned["NAICS_2022_2_NAME"].value_counts(), title="Job Postings by Industry")
+fig.show()
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Restrict to top 10 industries
+top10 = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().index[:10]
+filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
+
+print(filtered.columns)
+```
+
+```{python}
+# Plot
+plt.figure(figsize=(12,6))
+sns.boxplot(
+    data=filtered,
+    x="NAICS_2022_2_NAME",
+    y="SALARY",
+    palette="magma"
+)
+
+plt.xticks(rotation=45, ha="right")
+plt.title("Salary Distribution by Top 10 Industries")
+plt.xlabel(None)
+plt.ylabel("Salary")  
+plt.tight_layout()
+plt.show()
+
+
+```
+
