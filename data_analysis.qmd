@@ -245,10 +245,15 @@ pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
 pandas_cleaned
 ```
 
+## Data Analysis
+
 ```{python}
+# import programs for plotting visuals
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
+
+# Science and technical services more than double the next job posting group by industry.  
 
 ```{python}
 # Count occurrences
@@ -283,9 +288,11 @@ filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
 print(filtered.columns)
 ```
 
+# Information, Educational Services, and Healthcare and Social Assistance have the most variation in Salary. The rest of the industries a reletively thightly grouped on salary when group by Industry.
+
 ```{python}
 # Plot
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(20,6))
 sns.boxplot(
     data=filtered,
     x="NAICS_2022_2_NAME",
@@ -293,7 +300,7 @@ sns.boxplot(
     palette="magma"
 )
 
-plt.xticks(rotation=45, ha="right")
+plt.xticks(rotation=20, ha="right")
 plt.title("Salary Distribution by Top 10 Industries")
 plt.xlabel(None)
 plt.ylabel("Salary")  
@@ -302,6 +309,8 @@ plt.show()
 
 
 ```
+
+# Professional, Scientific, and Technical Services is by far the largest employer industry.
 
 ```{python}
 # Count occurrences
