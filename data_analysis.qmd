@@ -1,6 +1,6 @@
 ---
-title: "Data Analysis"
-subtitle: "Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends"
+title: Data Analysis
+subtitle: Comprehensive Data Cleaning & Exploratory Analysis of Job Market Trends
 author:
   - name: Caroline O'Sullivan
     affiliations:
@@ -13,10 +13,10 @@ author:
       - ref: bu
   - name: Taylor Luckenbill
     affiliations:
-      - ref: bu      
+      - ref: bu
 bibliography: bibliography.bib
 csl: csl/econometrica.csl
-format: 
+format:
   html:
     toc: true
     number-sections: true
@@ -24,10 +24,10 @@ format:
 engine: jupyter
 jupyter: python3
 execute:
-  echo: true      
-  eval: true      
-  output: true    
-  freeze: auto 
+  echo: true
+  eval: true
+  output: true
+  freeze: auto
 ---
 
 
@@ -55,17 +55,12 @@ df.createOrReplaceTempView("jobs")
 
 # Show schema
 df.printSchema()
-
 ```
 
 ```{python}
-#| echo : false
+#| echo: false
 df.show(5, truncate=False)
-
-
-
 ```
-
 
 # Data Cleaning & Preprocessing
 
@@ -115,8 +110,8 @@ The dataset includes both older and newer versions of industry (NAICS) and occup
 * Increases accuracy since results are based on the most up-to-date classification systems.
 
 ### Dropping Unnecessary Columns(Python Implementation)
-```{python}
 
+```{python}
 columns_to_drop = [
     "NAICS2", "NAICS2_NAME", "NAICS3", "NAICS3_NAME",
     "NAICS4", "NAICS4_NAME", "NAICS5", "NAICS5_NAME",
@@ -150,9 +145,6 @@ columns_to_drop = [
 df = df.drop(*columns_to_drop)
 df.show(truncate=False)
 df.count()
-
-
-
 ```
 
 ## Handling Missing Values(Numerical Python Implementation)
@@ -179,7 +171,6 @@ pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
     pandas_num[numeric_cols].median(numeric_only=True)
 )
 pandas_num.head()
-
 ```
 
 ## Handling Missing Values(Categorical Python Implementation)
@@ -210,7 +201,6 @@ plt.show()
 pandas_cat[categorical_cols] = pandas_cat[categorical_cols].fillna("Unknown")
 
 pandas_cat.head()
-
 ```
 
 ## Handling Missing Values(Date Python Implementation)
@@ -232,7 +222,6 @@ for col in date_cols:
     pandas_date[col] = pandas_date[col].fillna(pandas_date[col].mode()[0])
 
 pandas_date.head()
-
 ```
 
 ## Handling Missing Values(Combined Dataframe Python Implementation)
@@ -243,18 +232,16 @@ import pandas as pd
 pandas_handled_missing_values = pd.concat([pandas_num, pandas_cat, pandas_date], axis=1)
 
 pandas_handled_missing_values.head()
-
 ```
 
 ##  Duplicates Removal(Python Implementation)
-```{python}
 
+```{python}
 pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
     subset=["TITLE_CLEAN", "COMPANY_NAME", "LOCATION","POSTED"],
     keep="first"
 )
 
 pandas_cleaned
-
-
 ```
+
