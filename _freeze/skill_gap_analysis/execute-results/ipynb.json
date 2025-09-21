@@ -1,0 +1,11 @@
+{
+  "hash": "207d3aee331278b4ed49e57e4773132a",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: Team Skill Gap Analysis\nsubtitle: Analyzing Team Member Skill Gaps and Improvement Recommendations\nauthor:\n  - name: Caroline O'Sullivan\n    affiliations:\n      - id: bu\n        name: Boston University\n        city: Boston\n        state: MA\n  - name: Bhargavi Manyala\n    affiliations:\n      - ref: bu\n  - name: Taylor Luckenbill\n    affiliations:\n      - ref: bu\nbibliography: bibliography.bib\ncsl: csl/econometrica.csl\nformat:\n  html:\n    toc: true\n    number-sections: true\n    df-print: paged\nengine: jupyter\nexecute:\n  echo: true\n  eval: true\n  output: true\n  freeze: auto\n---\n\n---\njupyter:\n  kernelspec:\n    display_name: Python 3 (ipykernel)\n    language: python\n    name: python3\n    path: /opt/anaconda3/share/jupyter/kernels/python3\n  language_info:\n    codemirror_mode:\n      name: ipython\n      version: 3\n    file_extension: .py\n    mimetype: text/x-python\n    name: python\n    nbconvert_exporter: python\n    pygments_lexer: ipython3\n    version: 3.12.7\n---\n",
+    "supporting": [
+      "skill_gap_analysis_files"
+    ],
+    "filters": []
+  }
+}
