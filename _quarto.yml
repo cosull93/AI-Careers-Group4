@@ -14,6 +14,8 @@ website:
         href: bibliography.qmd
       - text: "Data Analysis"
         href: data_analysis.qmd
+      - text: "Skill Gap Analysis"
+        href: skill_gap_analysis.qmd
 
 format:
   html:

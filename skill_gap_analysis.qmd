@@ -1,0 +1,31 @@
+---
+title: Team Skill Gap Analysis
+subtitle: Analyzing Team Member Skill Gaps and Improvement Recommendations
+author:
+  - name: Caroline O'Sullivan
+    affiliations:
+      - id: bu
+        name: Boston University
+        city: Boston
+        state: MA
+  - name: Bhargavi Manyala
+    affiliations:
+      - ref: bu
+  - name: Taylor Luckenbill
+    affiliations:
+      - ref: bu
+bibliography: bibliography.bib
+csl: csl/econometrica.csl
+format:
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+engine: jupyter
+jupyter: python3
+execute:
+  echo: true
+  eval: true
+  output: true
+  freeze: auto
+---
