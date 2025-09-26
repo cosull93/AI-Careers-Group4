@@ -250,8 +250,11 @@ pandas_cleaned
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-
-# Science and technical services more than double the next job posting group by industry.  
+## EDA Focus on job postings, salary trends, and geographic variations.
+```{python}
+pandas_cleaned.head(10)
+```
+ 
 
 ```{python}
 # Count occurrences
@@ -259,47 +262,72 @@ industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().reset_index
 industry_counts.columns = ["Industry", "Count"]
 
 # Optional: limit to top 10 for readability
-top10 = industry_counts.head(10)
+#top10 = industry_counts.head(10)
+```
 
-# Plot
-plt.figure(figsize=(12,6))
-sns.barplot(
-    data=top10,
-    x="Industry",
-    y="Count",
-    palette="viridis"  # or "magma", "coolwarm", etc.
-)
+# Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings.
+```{python}
+# running percent of total
+industry_counts['cumPercent'] =industry_counts['Count'].cumsum()/industry_counts['Count'].sum()*100
 
-plt.xticks(rotation=45, ha="right")
-plt.title("Top 10 Industries by Job Postings")
-plt.xlabel(None)
-plt.ylabel("Count")
+# Step 4: Plot
+fig, ax1 = plt.subplots(figsize=(8,6))
+
+# Bar plot (frequencies)
+sns.barplot(x="Industry", y="Count", data=industry_counts, ax=ax1, color="black")
+ax1.set_ylabel("number of jobs by industry")
+ax1.tick_params(axis="x", rotation=90)
+
+# Line plot (cumulative %)
+ax2 = ax1.twinx()
+sns.lineplot(x="Industry", y="cumPercent", data=industry_counts, ax=ax2, color="purple", marker="o")
+ax2.set_ylabel("Cumulative %")
+
+# Add horizontal reference line at 80% (Pareto rule)
+ax2.axhline(80, color="gold", linestyle="--")
+plt.title("Pareto Chart of Industries Job Postings")
 plt.tight_layout()
 plt.show()
 ```
 
 ```{python}
-# Restrict to top 10 industries
-top10 = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().index[:10]
-filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
+# Plot
+#plt.figure(figsize=(12,6))
+#sns.barplot(
+#    data=top10,
+#    x="Industry",
+#    y="Count",
+#    palette="magma" 
+#)
 
-print(filtered.columns)
+#plt.xticks(rotation=45, ha="right")
+#plt.title("Top 10 Industries by Job Postings")
+#plt.xlabel(None)
+#plt.ylabel("Count")
+#plt.tight_layout()
+#plt.show()
 ```
 
-# Information, Educational Services, and Healthcare and Social Assistance have the most variation in Salary. The rest of the industries a reletively thightly grouped on salary when group by Industry.
-
 ```{python}
+# Restrict to top 10 industries
+#top10 = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().index[:10]
+#filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
+
+#print(filtered.columns)
+```
+
+ ```{python}
 # Plot
 plt.figure(figsize=(20,6))
 sns.boxplot(
-    data=filtered,
+    data=pandas_cleaned,
     x="NAICS_2022_2_NAME",
     y="SALARY",
     palette="magma"
 )
 
-plt.xticks(rotation=20, ha="right")
-plt.title("Salary Distribution by Top 10 Industries")
+plt.xticks(rotation=90, ha="right")
+plt.title("Salary Distribution by Industries")
 plt.xlabel(None)
 plt.ylabel("Salary")  
 plt.tight_layout()
@@ -312,20 +340,27 @@ plt.show()
 
 ```{python}
 # Count occurrences
-industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts()
+#industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts()
 
 # take top 10 industries for readability
-top10 = industry_counts.head(10)
+# top10 = industry_counts.head(10)
 
 # Pie chart
-plt.figure(figsize=(18,18))
-plt.pie(
-    top10.values,           # sizes
-    labels=top10.index,     # labels
-    autopct='%1.1f%%',      # show percentages
-)
-plt.title("Top 10 Industries by Job Postings")
-plt.tight_layout()
+#plt.figure(figsize=(16,16))
+#plt.pie(
+#    industry_counts.values,           # sizes
+#    labels=industry_counts.index,
+#    labeldistance=1.2,     # labels
+#    autopct='%1.1f%%',      # show percentages
+#)
+#plt.title("Top 10 Industries by Job Postings")
+#plt.tight_layout()
+#lt.show()
+```
+```{python}
+sns.scatterplot(data=pandas_cleaned, x="MIN_YEARS_EXPERIENCE", y="SALARY", hue="NAICS_2022_2_NAME", alpha=0.1)
+
+plt.legend(title="Which Industries pay more and require the most experience", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
+#plt.title("SALARY and years experience")
 plt.show()
 ```
-

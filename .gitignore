@@ -209,3 +209,4 @@ __marimo__/
 /.quarto/
 **/*.quarto_ipynb
 lightcast_job_postings.csv
+data_analysis_files
