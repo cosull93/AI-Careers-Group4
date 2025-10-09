@@ -16,6 +16,8 @@ website:
         href: data_analysis.qmd
       - text: "Skill Gap Analysis"
         href: skill_gap_analysis.html
+      - text: "Modeling Insights"
+        href: models
 
 format:
   html:
