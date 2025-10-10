@@ -337,7 +337,7 @@ plt.show()
 #lt.show()
 ```
 ```{python}
-sns.scatterplot(data=pandas_cleaned, x="MIN_YEARS_EXPERIENCE", y="SALARY", hue="NAICS_2022_2_NAME", alpha=0.1)
+sns.lineplot(data=pandas_cleaned, x="MIN_YEARS_EXPERIENCE", y="SALARY", hue="aiMentioned", alpha=0.1)
 
 plt.legend(title="Which Industries pay more and require the most experience", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
 #plt.title("SALARY and years experience")
