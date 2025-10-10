@@ -262,8 +262,9 @@ plt.axvline(x=100, color='darkgreen', linestyle='--', linewidth=2, label='100% C
 plt.xlim(95, 101)
 plt.legend()
 plt.tight_layout()
-plt.show()
-
+#plt.show()
+fig = plt.gcf()  
+fig
 pandas_cleaned
 
 
