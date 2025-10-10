@@ -16,8 +16,10 @@ website:
         href: data_analysis.qmd
       - text: "Skill Gap Analysis"
         href: skill_gap_analysis.html
-      - text: "Modeling Insights"
+      - text: "Regression Insights"
         href: models
+      - text: "KMeans Insights"
+        href: kmeans
 
 format:
   html:
