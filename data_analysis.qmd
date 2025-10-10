@@ -54,7 +54,7 @@ df.createOrReplaceTempView("jobs")
 
 
 # Show schema
-df.printSchema()
+#df.printSchema()
 ```
 
 ```{python}
@@ -225,9 +225,20 @@ pandas_date.head()
 ## Handling Missing Values(Combined Dataframe Python Implementation)
 
 ```{python}
+
 import pandas as pd
 
+# Reset indices before concatenating to avoid misalignment
+pandas_num = pandas_num.reset_index(drop=True)
+pandas_cat = pandas_cat.reset_index(drop=True)
+pandas_date = pandas_date.reset_index(drop=True)
+
+# Concatenate the cleaned dataframes
 pandas_handled_missing_values = pd.concat([pandas_num, pandas_cat, pandas_date], axis=1)
+
+
+print("Missing values after concatenation:")
+print(f"Total missing: {pandas_handled_missing_values.isnull().sum().sum()}")
 
 pandas_handled_missing_values.head()
 ```
@@ -240,7 +251,22 @@ pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
     keep="first"
 )
 
+# Visualize data completeness
+completion_rate = (1 - pandas_cleaned.isnull().sum() / len(pandas_cleaned)) * 100
+
+plt.figure(figsize=(12, 8))
+completion_rate.sort_values().plot(kind='barh', color='green')
+plt.xlabel('Completion Rate (%)')
+plt.title('Data Completeness After Cleaning')
+plt.axvline(x=100, color='darkgreen', linestyle='--', linewidth=2, label='100% Complete')
+plt.xlim(95, 101)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
 pandas_cleaned
+
+
 ```
 
 # Data Analysis

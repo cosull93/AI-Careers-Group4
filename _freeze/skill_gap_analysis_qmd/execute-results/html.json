@@ -1,0 +1,12 @@
+{
+  "hash": "207d3aee331278b4ed49e57e4773132a",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: Team Skill Gap Analysis\nsubtitle: Analyzing Team Member Skill Gaps and Improvement Recommendations\nauthor:\n  - name: Caroline O'Sullivan\n    affiliations:\n      - id: bu\n        name: Boston University\n        city: Boston\n        state: MA\n  - name: Bhargavi Manyala\n    affiliations:\n      - ref: bu\n  - name: Taylor Luckenbill\n    affiliations:\n      - ref: bu\nbibliography: bibliography.bib\ncsl: csl/econometrica.csl\nformat:\n  html:\n    toc: true\n    number-sections: true\n    df-print: paged\nengine: jupyter\nexecute:\n  echo: true\n  eval: true\n  output: true\n  freeze: auto\n---\n\n",
+    "supporting": [
+      "skill_gap_analysis_qmd_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
