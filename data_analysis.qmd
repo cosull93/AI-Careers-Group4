@@ -228,7 +228,7 @@ pandas_date.head()
 
 import pandas as pd
 
-# Reset indices before concatenating to avoid misalignment
+# Reset indices before concatenating 
 pandas_num = pandas_num.reset_index(drop=True)
 pandas_cat = pandas_cat.reset_index(drop=True)
 pandas_date = pandas_date.reset_index(drop=True)
@@ -265,8 +265,12 @@ plt.tight_layout()
 plt.show()
 fig = plt.gcf()  
 fig
-pandas_cleaned
 
+```
+
+```{python}
+
+pandas_cleaned
 
 ```
 
