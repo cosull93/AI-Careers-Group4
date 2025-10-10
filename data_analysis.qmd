@@ -243,16 +243,16 @@ pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
 pandas_cleaned
 ```
 
-## Data Analysis
+# Data Analysis
 
 ```{python}
 # import programs for plotting visuals
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-## EDA Focus on job postings, salary trends, and geographic variations.
+## An exploratoy analysis of ai and non ai trends
 ```{python}
-pandas_cleaned.head(10)
+#pandas_cleaned.head(10)
 ```
  
 
@@ -262,73 +262,52 @@ industry_counts = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().reset_index
 industry_counts.columns = ["Industry", "Count"]
 
 # Optional: limit to top 10 for readability
-#top10 = industry_counts.head(10)
+industry_counts.head(10)
 ```
 
-# Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings.
+## Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings. Many non-AI roles fall into the Professional, Scientific, and Technical Services category. The example used in the overview section was engineers. The example of highly automatable jobs included retail and financial services, which does lag the top category significantly.
 ```{python}
 # running percent of total
-industry_counts['cumPercent'] =industry_counts['Count'].cumsum()/industry_counts['Count'].sum()*100
+industry_counts['cumPercent'] = industry_counts['Count'].cumsum()/industry_counts['Count'].sum()*100
 
 # Step 4: Plot
 fig, ax1 = plt.subplots(figsize=(8,6))
 
 # Bar plot (frequencies)
-sns.barplot(x="Industry", y="Count", data=industry_counts, ax=ax1, color="black")
+sns.barplot(x="Industry", y="Count", data=industry_counts, ax=ax1, palette="colorblind")
 ax1.set_ylabel("number of jobs by industry")
 ax1.tick_params(axis="x", rotation=90)
 
 # Line plot (cumulative %)
 ax2 = ax1.twinx()
-sns.lineplot(x="Industry", y="cumPercent", data=industry_counts, ax=ax2, color="purple", marker="o")
+sns.lineplot(x="Industry", y="cumPercent", data=industry_counts, ax=ax2, color="black", marker="o")
 ax2.set_ylabel("Cumulative %")
 
 # Add horizontal reference line at 80% (Pareto rule)
-ax2.axhline(80, color="gold", linestyle="--")
+ax2.axhline(80, color="black", linestyle="--")
 plt.title("Pareto Chart of Industries Job Postings")
 plt.tight_layout()
 plt.show()
 ```
 
 ```{python}
-# Plot
-#plt.figure(figsize=(12,6))
-#sns.barplot(
-#    data=top10,
-#    x="Industry",
-#    y="Count",
-#    palette="magma" 
-#)
-
-#plt.xticks(rotation=45, ha="right")
-#plt.title("Top 10 Industries by Job Postings")
-#plt.xlabel(None)
-#plt.ylabel("Count")
-#plt.tight_layout()
-#plt.show()
-```
-
-```{python}
-# Restrict to top 10 industries
-#top10 = pandas_cleaned["NAICS_2022_2_NAME"].value_counts().index[:10]
-#filtered = pandas_cleaned[pandas_cleaned["NAICS_2022_2_NAME"].isin(top10)]
-
-#print(filtered.columns)
+pandas_cleaned.head(10)
 ```
 
  ```{python}
+pandas_cleaned["aiMentioned"] = pandas_cleaned["SOFTWARE_SKILLS_NAME"].str.contains("a.i.", case=False, na=False)
 # Plot
 plt.figure(figsize=(20,6))
-sns.boxplot(
+sns.scatterplot(
     data=pandas_cleaned,
-    x="NAICS_2022_2_NAME",
+    x="DURATION",
     y="SALARY",
-    palette="magma"
+    hue="aiMentioned"
 )
 
 plt.xticks(rotation=90, ha="right")
 plt.title("Salary Distribution by Industries")
-plt.xlabel(None)
+plt.xlabel("Duration")
 plt.ylabel("Salary")  
 plt.tight_layout()
 plt.show()
