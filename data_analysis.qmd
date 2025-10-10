@@ -246,6 +246,8 @@ pandas_handled_missing_values.head()
 ##  Duplicates Removal(Python Implementation)
 
 ```{python}
+from IPython.display import display
+
 pandas_cleaned = pandas_handled_missing_values.drop_duplicates(
     subset=["TITLE_CLEAN", "COMPANY_NAME", "LOCATION","POSTED"],
     keep="first"
@@ -263,7 +265,7 @@ plt.xlim(95, 101)
 plt.legend()
 plt.tight_layout()
 fig = plt.gcf()  
-fig
+display(fig)
 
 ```
 
