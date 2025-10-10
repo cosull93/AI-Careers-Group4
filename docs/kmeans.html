@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>kmeans – AI-Careers-Group4</title>
+<title>KMeans Clustering Analysis – AI-Careers-Group4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,8 +148,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Skill Gap Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./models"> 
-<span class="menu-text">Modeling Insights</span></a>
+    <a class="nav-link" href="./models.html"> 
+<span class="menu-text">Regression Insights</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./kmeans.html" aria-current="page"> 
+<span class="menu-text">Clustering Insights</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -167,19 +171,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link active" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">KMeans Clustering Analysis</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="section" class="level1">
-<h1></h1>
-<p>title: Regression and KMeans Modeling Analysis author: - name: Caroline O’Sullivan affiliations: - id: bu name: Boston University city: Boston state: MA - name: Bhargavi Manyala affiliations: - ref: bu - name: Taylor Luckenbill affiliations: - ref: bu bibliography: bibliography.bib csl: csl/econometrica.csl format: html: toc: true number-sections: true df-print: paged engine: jupyter jupyter: python3 execute: echo: true eval: true output: true freeze: auto —</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <div id="c575bc23" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -207,13 +224,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>25/10/09 22:03:54 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</code></pre>
+<pre><code>25/10/10 13:24:39 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>                                                                                </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>25/10/09 22:03:59 WARN package: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+<pre><code>25/10/10 13:24:44 WARN package: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
 +--------------------+-----------------+----------------------+----------+--------+---------+--------+--------------------+--------------------+--------------------+-----------+-------------------+--------------------+--------------------+---------------+----------------+--------+--------------------+-----------+-------------------+----------------+---------------------+-------------+-------------------+-------------+------------------+---------------+--------------------+--------------------+--------------------+-------------+------+-----------+----------------+-------------------+---------+-----------+--------------------+--------------------+-------------+------+--------------+-----+--------------------+-----+----------+---------------+--------------------+---------------+--------------------+------------+--------------------+------------+--------------------+------+--------------------+------+--------------------+------+--------------------+------+--------------------+------+--------------------+------------------+-------------------+--------------------+--------------------+--------------------+--------------------+-----------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+----------+--------------------+----------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+----------+--------------------+----------+--------------------+----------+---------------+----------+---------------+---------------+--------------------+--------------+--------------------+--------------------------+-------------------------------+--------------------+-------------------------+-----------------------------+----------------------------------+-----------------+----------------------+-----------------------+----------------------------+------------------+-----------------------+-------+--------------------+-------+--------------------+-------+---------------+-------+---------------+-----------------+----------------------+------------+--------------------+------------+--------------------+------------+--------------------+------------+--------------------+------------+--------------------+
 |                  ID|LAST_UPDATED_DATE|LAST_UPDATED_TIMESTAMP|DUPLICATES|  POSTED|  EXPIRED|DURATION|        SOURCE_TYPES|             SOURCES|                 URL|ACTIVE_URLS|ACTIVE_SOURCES_INFO|           TITLE_RAW|                BODY|MODELED_EXPIRED|MODELED_DURATION| COMPANY|        COMPANY_NAME|COMPANY_RAW|COMPANY_IS_STAFFING|EDUCATION_LEVELS|EDUCATION_LEVELS_NAME|MIN_EDULEVELS| MIN_EDULEVELS_NAME|MAX_EDULEVELS|MAX_EDULEVELS_NAME|EMPLOYMENT_TYPE|EMPLOYMENT_TYPE_NAME|MIN_YEARS_EXPERIENCE|MAX_YEARS_EXPERIENCE|IS_INTERNSHIP|SALARY|REMOTE_TYPE|REMOTE_TYPE_NAME|ORIGINAL_PAY_PERIOD|SALARY_TO|SALARY_FROM|            LOCATION|                CITY|    CITY_NAME|COUNTY|   COUNTY_NAME|  MSA|            MSA_NAME|STATE|STATE_NAME|COUNTY_OUTGOING|COUNTY_NAME_OUTGOING|COUNTY_INCOMING|COUNTY_NAME_INCOMING|MSA_OUTGOING|   MSA_NAME_OUTGOING|MSA_INCOMING|   MSA_NAME_INCOMING|NAICS2|         NAICS2_NAME|NAICS3|         NAICS3_NAME|NAICS4|         NAICS4_NAME|NAICS5|         NAICS5_NAME|NAICS6|         NAICS6_NAME|             TITLE|         TITLE_NAME|         TITLE_CLEAN|              SKILLS|         SKILLS_NAME|  SPECIALIZED_SKILLS|SPECIALIZED_SKILLS_NAME|      CERTIFICATIONS| CERTIFICATIONS_NAME|       COMMON_SKILLS|  COMMON_SKILLS_NAME|     SOFTWARE_SKILLS|SOFTWARE_SKILLS_NAME|      ONET|           ONET_NAME| ONET_2019|      ONET_2019_NAME|                CIP6|           CIP6_NAME|                CIP4|           CIP4_NAME|                CIP2|           CIP2_NAME|SOC_2021_2|     SOC_2021_2_NAME|SOC_2021_3|     SOC_2021_3_NAME|SOC_2021_4|SOC_2021_4_NAME|SOC_2021_5|SOC_2021_5_NAME|LOT_CAREER_AREA|LOT_CAREER_AREA_NAME|LOT_OCCUPATION| LOT_OCCUPATION_NAME|LOT_SPECIALIZED_OCCUPATION|LOT_SPECIALIZED_OCCUPATION_NAME|LOT_OCCUPATION_GROUP|LOT_OCCUPATION_GROUP_NAME|LOT_V6_SPECIALIZED_OCCUPATION|LOT_V6_SPECIALIZED_OCCUPATION_NAME|LOT_V6_OCCUPATION|LOT_V6_OCCUPATION_NAME|LOT_V6_OCCUPATION_GROUP|LOT_V6_OCCUPATION_GROUP_NAME|LOT_V6_CAREER_AREA|LOT_V6_CAREER_AREA_NAME|  SOC_2|          SOC_2_NAME|  SOC_3|          SOC_3_NAME|  SOC_4|     SOC_4_NAME|  SOC_5|     SOC_5_NAME|LIGHTCAST_SECTORS|LIGHTCAST_SECTORS_NAME|NAICS_2022_2|   NAICS_2022_2_NAME|NAICS_2022_3|   NAICS_2022_3_NAME|NAICS_2022_4|   NAICS_2022_4_NAME|NAICS_2022_5|   NAICS_2022_5_NAME|NAICS_2022_6|   NAICS_2022_6_NAME|
 +--------------------+-----------------+----------------------+----------+--------+---------+--------+--------------------+--------------------+--------------------+-----------+-------------------+--------------------+--------------------+---------------+----------------+--------+--------------------+-----------+-------------------+----------------+---------------------+-------------+-------------------+-------------+------------------+---------------+--------------------+--------------------+--------------------+-------------+------+-----------+----------------+-------------------+---------+-----------+--------------------+--------------------+-------------+------+--------------+-----+--------------------+-----+----------+---------------+--------------------+---------------+--------------------+------------+--------------------+------------+--------------------+------+--------------------+------+--------------------+------+--------------------+------+--------------------+------+--------------------+------------------+-------------------+--------------------+--------------------+--------------------+--------------------+-----------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+----------+--------------------+----------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+----------+--------------------+----------+--------------------+----------+---------------+----------+---------------+---------------+--------------------+--------------+--------------------+--------------------------+-------------------------------+--------------------+-------------------------+-----------------------------+----------------------------------+-----------------+----------------------+-----------------------+----------------------------+------------------+-----------------------+-------+--------------------+-------+--------------------+-------+---------------+-------+---------------+-----------------+----------------------+------------+--------------------+------------+--------------------+------------+--------------------+------------+--------------------+------------+--------------------+
@@ -270,7 +287,7 @@ only showing top 5 rows
 <pre><code>DataFrame[SALARY: double, NAICS_2022_2_NAME: string, SPECIALIZED_SKILLS_NAME: string]</code></pre>
 </div>
 </div>
-<div id="a5970190" class="cell">
+<div id="a5970190" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> when, lower, <span class="bu">sum</span>, avg, col, split, trim, lower, size, array_intersect, array</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.types <span class="im">import</span> IntegerType</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -278,7 +295,7 @@ only showing top 5 rows
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ai_skills <span class="op">=</span> [</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"machine learning"</span>, <span class="st">"artificial intelligence"</span>, <span class="st">"deep learning"</span>, <span class="st">"data science"</span>,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"neural networks"</span>, <span class="st">"computer vision"</span>, <span class="st">"natural language processing"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nlp"</span>, <span class="st">"ai"</span>, <span class="st">"automation"</span>, <span class="st">"predictive analytics"</span>, <span class="st">"data mining"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nlp"</span>, <span class="st">"ai"</span>, <span class="st">"predictive analytics"</span>, <span class="st">"data mining"</span>,</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tensorflow"</span>, <span class="st">"pytorch"</span>, <span class="st">"data engineering"</span>, <span class="st">"big data"</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
@@ -317,16 +334,16 @@ only showing top 5 rows
 <pre><code>+---------------------------------------------+-------------------+-------------+
 |NAICS_2022_2_NAME                            |avg_ai_skills      |median_salary|
 +---------------------------------------------+-------------------+-------------+
-|Transportation and Warehousing               |0.6951219512195121 |116500.0     |
-|Real Estate and Rental and Leasing           |0.6722689075630253 |116500.0     |
-|Manufacturing                                |0.6488502175264139 |116500.0     |
-|Information                                  |0.6203680362994707 |116500.0     |
-|Mining, Quarrying, and Oil and Gas Extraction|0.6011904761904762 |116500.0     |
-|Finance and Insurance                        |0.5863524925088531 |116500.0     |
-|Management of Companies and Enterprises      |0.5793357933579336 |116500.0     |
-|Retail Trade                                 |0.4976958525345622 |116500.0     |
-|Utilities                                    |0.49117647058823527|116500.0     |
-|Health Care and Social Assistance            |0.44525547445255476|116500.0     |
+|Real Estate and Rental and Leasing           |0.581032412965186  |116500.0     |
+|Transportation and Warehousing               |0.556910569105691  |116500.0     |
+|Manufacturing                                |0.5415371866583799 |116500.0     |
+|Information                                  |0.5210486513738342 |116500.0     |
+|Management of Companies and Enterprises      |0.4833948339483395 |116500.0     |
+|Finance and Insurance                        |0.4584581857804413 |116500.0     |
+|Mining, Quarrying, and Oil and Gas Extraction|0.4583333333333333 |116500.0     |
+|Retail Trade                                 |0.3911930363543267 |116500.0     |
+|Health Care and Social Assistance            |0.3667014250955857 |116500.0     |
+|Utilities                                    |0.36617647058823527|116500.0     |
 +---------------------------------------------+-------------------+-------------+
 only showing top 10 rows
 </code></pre>
@@ -358,11 +375,11 @@ only showing top 10 rows
 <pre><code>+------------------------------------------------+
 |features                                        |
 +------------------------------------------------+
-|(22,[0,1,3],[0.2765414928140936,116500.0,1.0])  |
-|(22,[0,1,16],[0.35360824742268043,87216.0,1.0]) |
-|(22,[0,1,17],[0.6722689075630253,116500.0,1.0]) |
-|(22,[0,1,10],[0.6203680362994707,116500.0,1.0]) |
-|(22,[0,1,20],[0.32166947723440137,116500.0,1.0])|
+|(22,[0,1,3],[0.20155308298562818,116500.0,1.0]) |
+|(22,[0,1,16],[0.28144329896907216,87216.0,1.0]) |
+|(22,[0,1,17],[0.581032412965186,116500.0,1.0])  |
+|(22,[0,1,10],[0.5210486513738342,116500.0,1.0]) |
+|(22,[0,1,20],[0.24957841483979765,116500.0,1.0])|
 +------------------------------------------------+
 only showing top 5 rows
 </code></pre>
@@ -398,27 +415,27 @@ only showing top 5 rows
 <pre><code>                                                                                </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Silhouette score: 0.8571427451623391
+<pre><code>Silhouette score: 0.8571427459116544
 Cluster Centers:
-Cluster 0: [4.67534910e-01 1.16500000e+05 5.55555556e-02 5.55555556e-02
+Cluster 0: [3.75421086e-01 1.16500000e+05 5.55555556e-02 5.55555556e-02
  5.55555556e-02 0.00000000e+00 5.55555556e-02 0.00000000e+00
  5.55555556e-02 5.55555556e-02 5.55555556e-02 5.55555556e-02
  5.55555556e-02 5.55555556e-02 5.55555556e-02 5.55555556e-02
  0.00000000e+00 5.55555556e-02 5.55555556e-02 5.55555556e-02
  5.55555556e-02 5.55555556e-02]
-Cluster 1: [3.53608247e-01 8.72160000e+04 0.00000000e+00 0.00000000e+00
+Cluster 1: [2.81443299e-01 8.72160000e+04 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  1.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00]
-Cluster 2: [4.28143713e-01 1.07500000e+05 0.00000000e+00 0.00000000e+00
+Cluster 2: [3.54790419e-01 1.07500000e+05 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 1.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00]
-Cluster 3: [4.30463576e-01 1.12650000e+05 0.00000000e+00 0.00000000e+00
+Cluster 3: [3.50993377e-01 1.12650000e+05 0.00000000e+00 0.00000000e+00
  0.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
  0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
@@ -432,16 +449,16 @@ Cluster 3: [4.30463576e-01 1.12650000e+05 0.00000000e+00 0.00000000e+00
 <pre><code>+------------------------------------------------------------------------+-------------------+-------------+----------+
 |NAICS_2022_2_NAME                                                       |avg_ai_skills      |median_salary|prediction|
 +------------------------------------------------------------------------+-------------------+-------------+----------+
-|Administrative and Support and Waste Management and Remediation Services|0.2765414928140936 |116500.0     |0         |
-|Public Administration                                                   |0.35360824742268043|87216.0      |1         |
-|Real Estate and Rental and Leasing                                      |0.6722689075630253 |116500.0     |0         |
-|Information                                                             |0.6203680362994707 |116500.0     |0         |
-|Unclassified Industry                                                   |0.32166947723440137|116500.0     |0         |
-|Accommodation and Food Services                                         |0.23885350318471338|116500.0     |0         |
-|Finance and Insurance                                                   |0.5863524925088531 |116500.0     |0         |
-|Construction                                                            |0.3709677419354839 |116500.0     |0         |
-|Utilities                                                               |0.49117647058823527|116500.0     |0         |
-|Management of Companies and Enterprises                                 |0.5793357933579336 |116500.0     |0         |
+|Administrative and Support and Waste Management and Remediation Services|0.20155308298562818|116500.0     |0         |
+|Public Administration                                                   |0.28144329896907216|87216.0      |1         |
+|Real Estate and Rental and Leasing                                      |0.581032412965186  |116500.0     |0         |
+|Information                                                             |0.5210486513738342 |116500.0     |0         |
+|Unclassified Industry                                                   |0.24957841483979765|116500.0     |0         |
+|Accommodation and Food Services                                         |0.1942675159235669 |116500.0     |0         |
+|Finance and Insurance                                                   |0.4584581857804413 |116500.0     |0         |
+|Construction                                                            |0.30483870967741933|116500.0     |0         |
+|Utilities                                                               |0.36617647058823527|116500.0     |0         |
+|Management of Companies and Enterprises                                 |0.4833948339483395 |116500.0     |0         |
 +------------------------------------------------------------------------+-------------------+-------------+----------+
 only showing top 10 rows
 </code></pre>
@@ -464,32 +481,32 @@ only showing top 10 rows
 <pre><code>+----------+------------------------------------------------------------------------+-------------------+-------------+------------+
 |prediction|NAICS_2022_2_NAME                                                       |avg_ai_skills      |median_salary|num_postings|
 +----------+------------------------------------------------------------------------+-------------------+-------------+------------+
-|0         |Information                                                             |0.6203680362994707 |116500.0     |1           |
-|0         |Real Estate and Rental and Leasing                                      |0.6722689075630253 |116500.0     |1           |
-|0         |Finance and Insurance                                                   |0.5863524925088531 |116500.0     |1           |
-|0         |Construction                                                            |0.3709677419354839 |116500.0     |1           |
-|0         |Utilities                                                               |0.49117647058823527|116500.0     |1           |
-|0         |Unclassified Industry                                                   |0.32166947723440137|116500.0     |1           |
-|0         |Administrative and Support and Waste Management and Remediation Services|0.2765414928140936 |116500.0     |1           |
-|0         |Other Services (except Public Administration)                           |0.323037323037323  |116500.0     |1           |
-|0         |Transportation and Warehousing                                          |0.6951219512195121 |116500.0     |1           |
-|0         |Wholesale Trade                                                         |0.44371788883699204|116500.0     |1           |
-|0         |Agriculture, Forestry, Fishing and Hunting                              |0.2236842105263158 |116500.0     |1           |
-|0         |Manufacturing                                                           |0.6488502175264139 |116500.0     |1           |
-|0         |Mining, Quarrying, and Oil and Gas Extraction                           |0.6011904761904762 |116500.0     |1           |
-|0         |Health Care and Social Assistance                                       |0.44525547445255476|116500.0     |1           |
-|0         |Retail Trade                                                            |0.4976958525345622 |116500.0     |1           |
-|0         |Management of Companies and Enterprises                                 |0.5793357933579336 |116500.0     |1           |
-|0         |Professional, Scientific, and Technical Services                        |0.37954106798198584|116500.0     |1           |
-|0         |Accommodation and Food Services                                         |0.23885350318471338|116500.0     |1           |
-|1         |Public Administration                                                   |0.35360824742268043|87216.0      |1           |
-|2         |Educational Services                                                    |0.4281437125748503 |107500.0     |1           |
+|0         |Information                                                             |0.5210486513738342 |116500.0     |1           |
+|0         |Real Estate and Rental and Leasing                                      |0.581032412965186  |116500.0     |1           |
+|0         |Finance and Insurance                                                   |0.4584581857804413 |116500.0     |1           |
+|0         |Construction                                                            |0.30483870967741933|116500.0     |1           |
+|0         |Utilities                                                               |0.36617647058823527|116500.0     |1           |
+|0         |Unclassified Industry                                                   |0.24957841483979765|116500.0     |1           |
+|0         |Administrative and Support and Waste Management and Remediation Services|0.20155308298562818|116500.0     |1           |
+|0         |Other Services (except Public Administration)                           |0.2471042471042471 |116500.0     |1           |
+|0         |Transportation and Warehousing                                          |0.556910569105691  |116500.0     |1           |
+|0         |Wholesale Trade                                                         |0.3615133115366651 |116500.0     |1           |
+|0         |Agriculture, Forestry, Fishing and Hunting                              |0.18421052631578946|116500.0     |1           |
+|0         |Manufacturing                                                           |0.5415371866583799 |116500.0     |1           |
+|0         |Mining, Quarrying, and Oil and Gas Extraction                           |0.4583333333333333 |116500.0     |1           |
+|0         |Health Care and Social Assistance                                       |0.3667014250955857 |116500.0     |1           |
+|0         |Retail Trade                                                            |0.3911930363543267 |116500.0     |1           |
+|0         |Management of Companies and Enterprises                                 |0.4833948339483395 |116500.0     |1           |
+|0         |Professional, Scientific, and Technical Services                        |0.2897276431481879 |116500.0     |1           |
+|0         |Accommodation and Food Services                                         |0.1942675159235669 |116500.0     |1           |
+|1         |Public Administration                                                   |0.28144329896907216|87216.0      |1           |
+|2         |Educational Services                                                    |0.35479041916167664|107500.0     |1           |
 +----------+------------------------------------------------------------------------+-------------------+-------------+------------+
 only showing top 20 rows
 </code></pre>
 </div>
 </div>
-<div id="e8d08de6" class="cell" data-execution_count="12">
+<div id="e8d08de6" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -499,7 +516,7 @@ only showing top 20 rows
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by avg_ai_skills</span></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>cluster_pd <span class="op">=</span> cluster_pd.sort_values(<span class="st">"avg_ai_skills"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>))</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster <span class="kw">in</span> cluster_pd[<span class="st">'prediction'</span>].unique():</span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> cluster_pd[cluster_pd[<span class="st">'prediction'</span>] <span class="op">==</span> cluster]</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    plt.bar(subset[<span class="st">'NAICS_2022_2_NAME'</span>], subset[<span class="st">'avg_ai_skills'</span>], label<span class="op">=</span><span class="ss">f"Cluster </span><span class="sc">{</span>cluster<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -510,8 +527,9 @@ only showing top 20 rows
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"AI Skill Clusters by Industry"</span>)</span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()  <span class="co"># Ensure labels fit nicely</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"ai_skill_clusters.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -520,6 +538,9 @@ only showing top 20 rows
 </div>
 </div>
 </div>
+<section id="interpretation" class="level1">
+<h1>Interpretation</h1>
+<p>Most industries ended up in Cluster 0, which seems to represent a baseline group with a very average AI skill level, the highest being around 0.6. This model looked to detect the presence of AI skills amongst other skills listed, so we could consider this moderate AI skill demand in job postings. The other clusters (Clusters 1–3) each only have one industry, and their average AI skill levels are closer to 0.3, meaning they’re significantly less AI focused. This KMeans analysis found that most industries share a similar level of AI skill demand in job postings, while a few have much lower AI significance. These industries being Arts, Education, and Public Administration are not surprising. The Arts industries generally reject AI adoption, as it is oppositional to their core purpose. Education may have some AI adoption, but other skills related to teaching will be much more in demand. Public Administration can be slow to adopt technologies in general, which could explain the lack of AI keyword presence in these postings.</p>
 
 
 </section>

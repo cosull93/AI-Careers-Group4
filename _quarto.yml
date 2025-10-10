@@ -17,7 +17,7 @@ website:
       - text: "Skill Gap Analysis"
         href: skill_gap_analysis.html
       - text: "Regression Insights"
-        href: models
+        href: models.html
       - text: "Clustering Insights"
         href: kmeans.html
 
