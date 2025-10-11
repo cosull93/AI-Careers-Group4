@@ -4,9 +4,10 @@ format:
   html:
     theme: flatly
     page-layout: full
+    toc: false
 ---
 
-# Welcome! This project examines AI-related skills across different industries, using clustering, regression to show how AI skill demand varies across job postings.
+Welcome! This project examines AI-related skills across different industries, using clustering, regression to show how AI skill demand varies across job postings.
 
 <div style="text-align: center; margin-top: 40px;">
 
