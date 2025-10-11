@@ -100,9 +100,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Home",
+    "title": "AI vs Non-AI Careers",
     "section": "",
-    "text": "Welcome to AI Careers Group 4\nThis is the home page for our project"
+    "text": "Welcome! This project examines AI-related skills across different industries, using clustering, regression to show how AI skill demand varies across job postings.\n\n 🧠 Project Overview \n 📊 Data Analysis \n ⚖️ Skill Gap Analysis \n 📈 Regression Model Comparison \n 🧩 Clustering Insights"
   },
   {
     "objectID": "bibliography.html",
