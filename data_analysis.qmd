@@ -153,9 +153,6 @@ import matplotlib.pyplot as plt
 numeric_cols = [
     "DURATION", "COMPANY", "MIN_YEARS_EXPERIENCE", "MAX_YEARS_EXPERIENCE",
     "SALARY", "SALARY_TO", "SALARY_FROM", "MSA",
-    "LOT_CAREER_AREA", "LOT_OCCUPATION", "LOT_SPECIALIZED_OCCUPATION",
-    "LOT_OCCUPATION_GROUP", "NAICS_2022_2", "NAICS_2022_3",
-    "NAICS_2022_4", "NAICS_2022_5", "NAICS_2022_6"
 ]
 
 pandas_num = df.select(numeric_cols).toPandas()
@@ -169,7 +166,7 @@ pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
 )
 #pandas_num.head()
 ```
-### Replace missing values with the respective medians.
+### For now, consider NA coorelations as knowledge. replace missing values with the respective medians.
 
 
 ## Handling Missing Values(Categorical Python Implementation)
@@ -190,8 +187,13 @@ categorical_cols = [
     "LOT_CAREER_AREA_NAME", "LOT_OCCUPATION_NAME",
     "LOT_SPECIALIZED_OCCUPATION_NAME", "LOT_OCCUPATION_GROUP_NAME",
     "NAICS_2022_2_NAME", "NAICS_2022_3_NAME", "NAICS_2022_4_NAME",
-    "NAICS_2022_5_NAME", "NAICS_2022_6_NAME","SPECIALIZED_SKILLS_NAME","CERTIFICATIONS_NAME","COMMON_SKILLS_NAME","SOFTWARE_SKILLS_NAME"
+    "NAICS_2022_5_NAME", "NAICS_2022_6_NAME","SPECIALIZED_SKILLS_NAME","CERTIFICATIONS_NAME","COMMON_SKILLS_NAME","SOFTWARE_SKILLS_NAME","LOT_CAREER_AREA", "LOT_OCCUPATION", "LOT_SPECIALIZED_OCCUPATION",
+    "LOT_OCCUPATION_GROUP", "NAICS_2022_2", "NAICS_2022_3",
+    "NAICS_2022_4", "NAICS_2022_5", "NAICS_2022_6"
 ]
+
+
+
 
 pandas_cat = df.select(categorical_cols).toPandas()
 
