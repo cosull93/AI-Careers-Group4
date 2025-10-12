@@ -32,17 +32,13 @@ execute:
 
 
 # Import Data
-Importing dataset using Pyspark..The code shows the schema and few rows of the dataset.
-
+Import the dataset using Pyspark. Start a spark session, load to a data frame, and register.
 
 ```{python}
 from pyspark.sql import SparkSession
 
-# Start a Spark session
 spark = SparkSession.builder.appName("JobPostingsAnalysis").getOrCreate()
 
-    
-# Load the CSV file into a Spark DataFrame
 df = spark.read \
     .option("header", "true") \
     .option("inferSchema", "true") \
@@ -147,6 +143,7 @@ df.count()
 
 ## Handling Missing Values(Numerical Python Implementation)
 
+### First review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 ```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
