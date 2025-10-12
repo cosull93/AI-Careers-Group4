@@ -144,6 +144,8 @@ df.count()
 ## Handling Missing Values(Numerical Python Implementation)
 
 ### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+
+### This matrix reveals two correlation groups. One relating the company and qalitative information about the job and another group related to salary to and from. The rest of the variables have NA records independant of one another. The cooralation of missing to and from dates are more than likely associated the the fact that some states require this information on job postings while others do not. The perfect positive coorelation for company, career area, lot occupation, lot specialized occupation, lot occupation group,  NAICS 2022_2, 2022_3, 2022_4, 2022_5, and 2022_6 suggests they are all part of the same survey or survey section and these answers may require all of these fields to be entered in order to submit or the data has already been cleaned for this group.
 ```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
