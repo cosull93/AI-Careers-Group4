@@ -143,7 +143,7 @@ df.count()
 
 ## Handling Missing Values(Numerical Python Implementation)
 
-### First review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 ```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
@@ -165,10 +165,14 @@ plt.show()
 pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
     pandas_num[numeric_cols].median(numeric_only=True)
 )
-pandas_num.head()
+#pandas_num.head()
 ```
+### Replace missing values with the respective medians.
+
 
 ## Handling Missing Values(Categorical Python Implementation)
+
+### Review the categoric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 
 ```{python}
 import missingno as msno
@@ -199,6 +203,8 @@ pandas_cat.head()
 ```
 
 ## Handling Missing Values(Date Python Implementation)
+
+### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 
 ```{python}
 import missingno as msno
