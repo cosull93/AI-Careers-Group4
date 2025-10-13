@@ -173,7 +173,7 @@ pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
 
 ### Review the categoric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 
-### Several variables have NA coorelations of 1. The exceptions are max edu levels, original pay period, title, and msa name. The rest are always NA when one of the other values in the same group are.
+### Several variables have positive NA coorelations of 1. The exceptions are max edu levels, original pay period, title, and msa name. The rest are always NA when one of the other values in the same group are. Replace all NAs of categorical variables. 
 
 ```{python}
 import missingno as msno
@@ -212,6 +212,8 @@ pandas_cat[categorical_cols] = pandas_cat[categorical_cols].fillna("Unknown")
 
 ### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
 
+### Posted and expired date NAs are independant of each other. 
+
 ```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
@@ -228,10 +230,10 @@ for col in date_cols:
     pandas_date[col] = pd.to_datetime(pandas_date[col], errors="coerce")
     pandas_date[col] = pandas_date[col].fillna(pandas_date[col].mode()[0])
 
-pandas_date.head()
+#pandas_date.head()
 ```
 
-## Handling Missing Values(Combined Dataframe Python Implementation)
+### Combine the data frames for the thre variable types.
 
 ```{python}
 import pandas as pd
@@ -248,7 +250,7 @@ pandas_handled_missing_values = pd.concat([pandas_num, pandas_cat, pandas_date],
 print("Missing values after concatenation:")
 print(f"Total missing: {pandas_handled_missing_values.isnull().sum().sum()}")
 
-pandas_handled_missing_values.head()
+#pandas_handled_missing_values.head()
 ```
 
 ##  Duplicates Removal(Python Implementation)
@@ -276,6 +278,7 @@ plt.show()
 ```
 
 ```{python}
+#| echo: false
 
 pandas_cleaned
 
