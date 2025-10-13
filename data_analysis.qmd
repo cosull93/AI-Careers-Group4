@@ -327,6 +327,7 @@ plt.tight_layout()
 plt.show()
 ```
 
+### Next review the data to understand the trends in AI mentioned as a software skill. To do this search for the mention of "A.I." in the software skills. This is a relative measure as other text could describe software skills relative to A.I.. The result shows a significant mention of AI mentions in job skill requirements. 
  ```{python}
 pandas_cleaned["aiMentioned"] = pandas_cleaned["SOFTWARE_SKILLS_NAME"].str.contains("a.i.", case=False, na=False)
 # Plot
