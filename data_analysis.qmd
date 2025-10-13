@@ -331,7 +331,7 @@ plt.show()
  ```{python}
 pandas_cleaned["aiMentioned"] = pandas_cleaned["SOFTWARE_SKILLS_NAME"].str.contains("a.i.", case=False, na=False)
 # Plot
-plt.figure(figsize=(20,6))
+plt.figure(figsize=(20,16))
 sns.scatterplot(
     data=pandas_cleaned,
     x="DURATION",
@@ -339,7 +339,6 @@ sns.scatterplot(
     hue="aiMentioned"
 )
 
-plt.xticks(rotation=90, ha="right")
 plt.title("Trends in job hiring speed given A.I. skills requirements")
 plt.xlabel("DURATION")
 plt.ylabel("Salary")  
@@ -377,10 +376,11 @@ pandas_cleaned.columns
 
 
 ```{python}
+plt.figure(figsize=(20,20))
 sns.lineplot(data=pandas_cleaned, x="NAICS_2022_2_NAME", y="SALARY", hue="aiMentioned", alpha=0.1)
 
 plt.legend(title="Which Industries pay more for ai skills", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
 #plt.title("SALARY and years experience")
-plt.xticks(rotation=90, ha="right")
+plt.xticks(rotation=60, ha="right")
 plt.show()
 ```
