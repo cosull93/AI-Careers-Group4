@@ -340,8 +340,8 @@ sns.scatterplot(
 )
 
 plt.xticks(rotation=90, ha="right")
-plt.title("Salary Distribution by Industries")
-plt.xlabel("Duration")
+plt.title("Trends in job hiring speed given A.I. skills requirements")
+plt.xlabel("DURATION")
 plt.ylabel("Salary")  
 plt.tight_layout()
 plt.show()
@@ -370,12 +370,17 @@ plt.show()
 #plt.tight_layout()
 #lt.show()
 ```
+
 ```{python}
-sns.lineplot(data=pandas_cleaned, x="MIN_YEARS_EXPERIENCE", y="SALARY", hue="aiMentioned", alpha=0.1)
+pandas_cleaned.columns
+```
+
+
+```{python}
+sns.lineplot(data=pandas_cleaned, x="NAICS_2022_2_NAME", y="SALARY", hue="aiMentioned", alpha=0.1)
 
 plt.legend(title="Which Industries pay more and require the most experience", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
 #plt.title("SALARY and years experience")
+plt.xticks(rotation=90, ha="right")
 plt.show()
 ```
-
-#timestamp 10.11
