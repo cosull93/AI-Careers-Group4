@@ -292,10 +292,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 ## An exploratoy analysis of ai and non ai trends
-```{python}
-#pandas_cleaned.head(10)
-```
- 
 
 ```{python}
 # Count occurrences
@@ -306,7 +302,7 @@ industry_counts.columns = ["Industry", "Count"]
 industry_counts.head(10)
 ```
 
-## Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings. Many non-AI roles fall into the Professional, Scientific, and Technical Services category. The example used in the overview section was engineers. The example of highly automatable jobs included retail and financial services, which does lag the top category significantly.
+### Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings. Many non-AI roles fall into the Professional, Scientific, and Technical Services category. The example used in the overview section was engineers. The example of highly automatable jobs included retail and financial services, which does lag the top category significantly.
 ```{python}
 # running percent of total
 industry_counts['cumPercent'] = industry_counts['Count'].cumsum()/industry_counts['Count'].sum()*100
@@ -329,10 +325,6 @@ ax2.axhline(80, color="black", linestyle="--")
 plt.title("Pareto Chart of Industries Job Postings")
 plt.tight_layout()
 plt.show()
-```
-
-```{python}
-pandas_cleaned.head(10)
 ```
 
  ```{python}
