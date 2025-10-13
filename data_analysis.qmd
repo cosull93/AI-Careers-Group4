@@ -166,12 +166,14 @@ pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
 )
 #pandas_num.head()
 ```
-### For now, consider NA coorelations as knowledge. replace missing values with the respective medians.
+### For now, consider NA coorelations as context. replace missing values with the respective medians.
 
 
 ## Handling Missing Values(Categorical Python Implementation)
 
 ### Review the categoric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+
+### Several variables have NA coorelations of 1. The exceptions are max edu levels, original pay period, title, and msa name. The rest are always NA when one of the other values in the same group are.
 
 ```{python}
 import missingno as msno
@@ -203,7 +205,7 @@ plt.show()
 
 pandas_cat[categorical_cols] = pandas_cat[categorical_cols].fillna("Unknown")
 
-pandas_cat.head()
+#pandas_cat.head()
 ```
 
 ## Handling Missing Values(Date Python Implementation)
@@ -232,7 +234,6 @@ pandas_date.head()
 ## Handling Missing Values(Combined Dataframe Python Implementation)
 
 ```{python}
-
 import pandas as pd
 
 # Reset indices before concatenating 
