@@ -32,17 +32,13 @@ execute:
 
 
 # Import Data
-Importing dataset using Pyspark..The code shows the schema and few rows of the dataset.
-
+Import the dataset using Pyspark. Start a spark session, load to a data frame, and register.
 
 ```{python}
 from pyspark.sql import SparkSession
 
-# Start a Spark session
 spark = SparkSession.builder.appName("JobPostingsAnalysis").getOrCreate()
 
-    
-# Load the CSV file into a Spark DataFrame
 df = spark.read \
     .option("header", "true") \
     .option("inferSchema", "true") \
@@ -147,6 +143,9 @@ df.count()
 
 ## Handling Missing Values(Numerical Python Implementation)
 
+### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+
+### This matrix reveals two correlation groups. One relating the company and qalitative information about the job and another group related to salary to and from. The rest of the variables have NA records independant of one another. The cooralation of missing to and from dates are more than likely associated the the fact that some states require this information on job postings while others do not. The perfect positive coorelation for company, career area, lot occupation, lot specialized occupation, lot occupation group,  NAICS 2022_2, 2022_3, 2022_4, 2022_5, and 2022_6 suggests they are all part of the same survey or survey section and these answers may require all of these fields to be entered in order to submit or the data has already been cleaned for this group.
 ```{python}
 import missingno as msno
 import matplotlib.pyplot as plt
@@ -154,9 +153,6 @@ import matplotlib.pyplot as plt
 numeric_cols = [
     "DURATION", "COMPANY", "MIN_YEARS_EXPERIENCE", "MAX_YEARS_EXPERIENCE",
     "SALARY", "SALARY_TO", "SALARY_FROM", "MSA",
-    "LOT_CAREER_AREA", "LOT_OCCUPATION", "LOT_SPECIALIZED_OCCUPATION",
-    "LOT_OCCUPATION_GROUP", "NAICS_2022_2", "NAICS_2022_3",
-    "NAICS_2022_4", "NAICS_2022_5", "NAICS_2022_6"
 ]
 
 pandas_num = df.select(numeric_cols).toPandas()
@@ -168,10 +164,16 @@ plt.show()
 pandas_num[numeric_cols] = pandas_num[numeric_cols].fillna(
     pandas_num[numeric_cols].median(numeric_only=True)
 )
-pandas_num.head()
+#pandas_num.head()
 ```
+### For now, consider NA coorelations as context. replace missing values with the respective medians.
+
 
 ## Handling Missing Values(Categorical Python Implementation)
+
+### Review the categoric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+
+### Several variables have positive NA coorelations of 1. The exceptions are max edu levels, original pay period, title, and msa name. The rest are always NA when one of the other values in the same group are. Replace all NAs of categorical variables. 
 
 ```{python}
 import missingno as msno
@@ -187,8 +189,13 @@ categorical_cols = [
     "LOT_CAREER_AREA_NAME", "LOT_OCCUPATION_NAME",
     "LOT_SPECIALIZED_OCCUPATION_NAME", "LOT_OCCUPATION_GROUP_NAME",
     "NAICS_2022_2_NAME", "NAICS_2022_3_NAME", "NAICS_2022_4_NAME",
-    "NAICS_2022_5_NAME", "NAICS_2022_6_NAME","SPECIALIZED_SKILLS_NAME","CERTIFICATIONS_NAME","COMMON_SKILLS_NAME","SOFTWARE_SKILLS_NAME"
+    "NAICS_2022_5_NAME", "NAICS_2022_6_NAME","SPECIALIZED_SKILLS_NAME","CERTIFICATIONS_NAME","COMMON_SKILLS_NAME","SOFTWARE_SKILLS_NAME","LOT_CAREER_AREA", "LOT_OCCUPATION", "LOT_SPECIALIZED_OCCUPATION",
+    "LOT_OCCUPATION_GROUP", "NAICS_2022_2", "NAICS_2022_3",
+    "NAICS_2022_4", "NAICS_2022_5", "NAICS_2022_6"
 ]
+
+
+
 
 pandas_cat = df.select(categorical_cols).toPandas()
 
@@ -198,10 +205,14 @@ plt.show()
 
 pandas_cat[categorical_cols] = pandas_cat[categorical_cols].fillna("Unknown")
 
-pandas_cat.head()
+#pandas_cat.head()
 ```
 
 ## Handling Missing Values(Date Python Implementation)
+
+### Review the numeric variables in a matrix to understand how the NAs are coorelated to each other. A value of 1 means that whenever one variable is missing the other is also missing. A value of -1 infers the opposite, and a value of 0 infers independence in the missingness of the variables. 
+
+### Posted and expired date NAs are independant of each other. 
 
 ```{python}
 import missingno as msno
@@ -219,13 +230,12 @@ for col in date_cols:
     pandas_date[col] = pd.to_datetime(pandas_date[col], errors="coerce")
     pandas_date[col] = pandas_date[col].fillna(pandas_date[col].mode()[0])
 
-pandas_date.head()
+#pandas_date.head()
 ```
 
-## Handling Missing Values(Combined Dataframe Python Implementation)
+### Combine the data frames for the thre variable types.
 
 ```{python}
-
 import pandas as pd
 
 # Reset indices before concatenating 
@@ -240,7 +250,7 @@ pandas_handled_missing_values = pd.concat([pandas_num, pandas_cat, pandas_date],
 print("Missing values after concatenation:")
 print(f"Total missing: {pandas_handled_missing_values.isnull().sum().sum()}")
 
-pandas_handled_missing_values.head()
+#pandas_handled_missing_values.head()
 ```
 
 ##  Duplicates Removal(Python Implementation)
@@ -268,6 +278,7 @@ plt.show()
 ```
 
 ```{python}
+#| echo: false
 
 pandas_cleaned
 
@@ -281,10 +292,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 ## An exploratoy analysis of ai and non ai trends
-```{python}
-#pandas_cleaned.head(10)
-```
- 
 
 ```{python}
 # Count occurrences
@@ -295,7 +302,7 @@ industry_counts.columns = ["Industry", "Count"]
 industry_counts.head(10)
 ```
 
-## Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings. Many non-AI roles fall into the Professional, Scientific, and Technical Services category. The example used in the overview section was engineers. The example of highly automatable jobs included retail and financial services, which does lag the top category significantly.
+### Science and technical services more than double the next job posting group by industry. Six industries comprise 80% of job postings. Many non-AI roles fall into the Professional, Scientific, and Technical Services category. The example used in the overview section was engineers. The example of highly automatable jobs included retail and financial services, which does lag the top category significantly.
 ```{python}
 # running percent of total
 industry_counts['cumPercent'] = industry_counts['Count'].cumsum()/industry_counts['Count'].sum()*100
@@ -320,14 +327,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-```{python}
-pandas_cleaned.head(10)
-```
-
+### Next review the data to understand the trends in AI mentioned as a software skill. To do this search for the mention of "A.I." in the software skills. This is a relative measure as other text could describe software skills relative to A.I.. The result shows a significant mention of AI mentions in job skill requirements. 
  ```{python}
 pandas_cleaned["aiMentioned"] = pandas_cleaned["SOFTWARE_SKILLS_NAME"].str.contains("a.i.", case=False, na=False)
 # Plot
-plt.figure(figsize=(20,6))
+plt.figure(figsize=(20,16))
 sns.scatterplot(
     data=pandas_cleaned,
     x="DURATION",
@@ -335,9 +339,8 @@ sns.scatterplot(
     hue="aiMentioned"
 )
 
-plt.xticks(rotation=90, ha="right")
-plt.title("Salary Distribution by Industries")
-plt.xlabel("Duration")
+plt.title("Trends in job hiring speed given A.I. skills requirements")
+plt.xlabel("DURATION")
 plt.ylabel("Salary")  
 plt.tight_layout()
 plt.show()
@@ -366,12 +369,18 @@ plt.show()
 #plt.tight_layout()
 #lt.show()
 ```
-```{python}
-sns.lineplot(data=pandas_cleaned, x="MIN_YEARS_EXPERIENCE", y="SALARY", hue="aiMentioned", alpha=0.1)
 
-plt.legend(title="Which Industries pay more and require the most experience", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
-#plt.title("SALARY and years experience")
-plt.show()
+```{python}
+pandas_cleaned.columns
 ```
 
-#timestamp 10.11
+
+```{python}
+plt.figure(figsize=(20,20))
+sns.lineplot(data=pandas_cleaned, x="NAICS_2022_2_NAME", y="SALARY", hue="aiMentioned", alpha=0.1)
+
+plt.legend(title="Which Industries pay more for ai skills", loc="upper left", fontsize=3, title_fontsize=6, ncol=3)
+#plt.title("SALARY and years experience")
+plt.xticks(rotation=60, ha="right")
+plt.show()
+```
